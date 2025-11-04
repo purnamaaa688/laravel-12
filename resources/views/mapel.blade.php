@@ -9,20 +9,12 @@
               <!-- Striped Rows -->
               <div class="card">
                 <h5 class="card-header">Data Siswa</h5>
-                  <div class="col-md-2">
-                    <div class="row mb-3">
-                    <button type="button" class="btn btn-success btn-sm" data-bs-target="#input-siswa" data-bs-toggle="modal">tambah</button>
-                    </div>
-                  </div>
-                  
-                  
- 
-              
+                <button type="button" class="btn btn-success btn-sm" data-bs-target="input-siswa" data-bs-toggle="modal">tambah</button>
+                <div class="table-responsive text-nowrap">
                   <table class="table table-striped">
                     <thead>
                       <tr>
                         <th>aksi</th>
-                        <th>id</th>
                         <th>Nama Siswa</th>
                         <th>Jenis Kelamin</th>
                         <th>Tempat Lahir</th>
@@ -52,7 +44,6 @@
                           </div>
                         </td>
                        
-                          <td>{{ $item->id }}</td>
                           <td>{{ $item->namasiswa }}</td>
                           <td>{{ $item->jeniskelamin }}</td>
                           <td>{{ $item->tempatlahir }}</td>
@@ -71,7 +62,7 @@
 
             </div>
 
-        
+            //form input 
              <div class="modal fade" id="input-siswa" tabindex="-1" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">

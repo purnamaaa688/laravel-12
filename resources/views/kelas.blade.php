@@ -8,33 +8,21 @@
 
               <!-- Striped Rows -->
               <div class="card">
-                <h5 class="card-header">Data Siswa</h5>
-                  <div class="col-md-2">
-                    <div class="row mb-3">
-                    <button type="button" class="btn btn-success btn-sm" data-bs-target="#input-siswa" data-bs-toggle="modal">tambah</button>
-                    </div>
-                  </div>
-                  
-                  
- 
-              
+                <h5 class="card-header">Data Kelas</h5>
+                <button type="button" class="btn btn-success btn-sm" data-bs-target="input-siswa" data-bs-toggle="modal">tambah</button>
+                <div class="table-responsive text-nowrap">
                   <table class="table table-striped">
                     <thead>
                       <tr>
                         <th>aksi</th>
                         <th>id</th>
-                        <th>Nama Siswa</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tanggal Lahir</th>
-                        <th>Alamat</th>
-                        <th>No Telepon</th>
-                        <th>Email</th>
-                        <th>NISN</th>
+                        <th>Nama Kelas</th>
+                        <th>Lokasi</th>
+
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                       @foreach ($siswa as $item)
+                       @foreach ($kelas as $item)
                       <tr>
                         <td>
                           <div class="dropdown">
@@ -53,15 +41,9 @@
                         </td>
                        
                           <td>{{ $item->id }}</td>
-                          <td>{{ $item->namasiswa }}</td>
-                          <td>{{ $item->jeniskelamin }}</td>
-                          <td>{{ $item->tempatlahir }}</td>
-                          <td>{{ $item->tanggallahir }}</td>
-                          <td>{{ $item->alamat }}</td>
-                          <td>{{ $item->nohp }}</td>
-                          <td>{{ $item->email }}</td>
-                          <td>{{ $item->NISN }}</td>
-                          @endforeach
+                          <td>{{ $item->namakelas }}</td>
+                          <td>{{ $item->lokasi }}</td>
+                         @endforeach
                         </tr>
                     </tbody>
                   </table>
@@ -71,7 +53,7 @@
 
             </div>
 
-        
+            //form input 
              <div class="modal fade" id="input-siswa" tabindex="-1" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">

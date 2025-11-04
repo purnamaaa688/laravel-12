@@ -154,19 +154,19 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="index.html" class="menu-link">
+              <a href="{{ route('kelas')}}" class="menu-link">
                 <i class="menu-icon tf-icons bxr bx-building"></i>
                 <div data-i18n="Analytics">kelas</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="index.html" class="menu-link">
+              <a href="{{ route('guru')}}" class="menu-link">
                 <i class="menu-icon tf-icons bxr bx-location"></i>
                 <div data-i18n="Analytics">guru </div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="index.html" class="menu-link">
+              <a href="{{ route('matapelajaran')}}" class="menu-link">
                 <i class="menu-icon tf-icons bxr bx-calender"></i>
                 <div data-i18n="Analytics">mata pelajaran</div>
               </a>
@@ -368,6 +368,7 @@
 
     <!-- Page JS -->
     <script src="../assets/js/dashboards-analytics.js"></script>
+ <script src="../assets/js/ui-modals.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
