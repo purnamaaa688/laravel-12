@@ -15,6 +15,7 @@
             <th>aksi</th>
             <th>id</th>
             <th>Nama Kelas</th>
+            <th>Lokasi</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
@@ -24,7 +25,8 @@
               <button type="button" class="btn btn-sm btn-primary btn-edit me-2"
                 data-bs-toggle="modal" data-bs-target="#edit-kelas"
                 data-id="{{ $item->id }}"
-                data-namakelas="{{ $item->namakelas }}">
+                data-namakelas="{{ $item->namakelas }}"
+                data-lokasi="{{ $item->lokasi }}">
                 <i class="bx bx-edit-alt"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger btn-delete"
@@ -36,6 +38,7 @@
             </td>
             <td>{{ $item->id }}</td>
             <td>{{ $item->namakelas }}</td>
+            <td>{{ $item->lokasi }}</td>
           </tr>
           @endforeach
         </tbody>
@@ -61,6 +64,10 @@
               <label for="namakelas" class="form-label">Nama Kelas</label>
               <input type="text" name="namakelas" id="namakelas" class="form-control" placeholder="Contoh: X A" required />
             </div>
+              <div class="col mb-3">
+                <label for="lokasi" class="form-label">Lokasi</label>
+                <input type="text" name="lokasi" id="lokasi" class="form-control" placeholder="Contoh: Ruang 101" />
+              </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -89,6 +96,10 @@
               <label for="edit-namakelas" class="form-label">Nama Kelas</label>
               <input type="text" name="namakelas" id="edit-namakelas" class="form-control" required />
             </div>
+              <div class="col mb-3">
+                <label for="edit-lokasi" class="form-label">Lokasi</label>
+                <input type="text" name="lokasi" id="edit-lokasi" class="form-control" />
+              </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -130,6 +141,10 @@
     if (!el) return;
     const id = el.getAttribute('data-id');
     document.getElementById('edit-namakelas').value = el.getAttribute('data-namakelas') || '';
+    // populate lokasi
+    const lokasiVal = el.getAttribute('data-lokasi') || '';
+    const editLokasiEl = document.getElementById('edit-lokasi');
+    if (editLokasiEl) editLokasiEl.value = lokasiVal;
     const form = document.getElementById('form-edit-kelas');
     if (form) form.action = '/kelas/' + id;
   });
@@ -156,6 +171,9 @@
         data.append('_token', token);
         data.append('_method', 'PUT');
         data.append('namakelas', document.getElementById('edit-namakelas').value);
+        // include lokasi in update
+        const editLok = document.getElementById('edit-lokasi');
+        if (editLok) data.append('lokasi', editLok.value);
         fetch(action, { method: 'POST', headers: { 'Accept': 'application/json' }, body: data })
           .then(r => r.ok ? r.json() : r.json().then(j => { throw j; }))
           .then(d => {

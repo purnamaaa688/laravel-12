@@ -12,5 +12,6 @@ class Kelas extends Model
 
     protected $fillable = [
         'namakelas',
+        'lokasi',
     ];
 }

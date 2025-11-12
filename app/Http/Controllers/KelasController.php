@@ -18,6 +18,7 @@ class KelasController extends Controller
     {
         $data = $request->validate([
             'namakelas' => 'required|string|max:255',
+            'lokasi' => 'nullable|string|max:255',
         ]);
 
         Kelas::create($data);
@@ -31,6 +32,7 @@ class KelasController extends Controller
 
         $data = $request->validate([
             'namakelas' => 'required|string|max:255',
+            'lokasi' => 'nullable|string|max:255',
         ]);
 
         $kelas->update($data);
