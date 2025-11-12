@@ -17,6 +17,9 @@ Route::put('kelas/{kelas}', [App\Http\Controllers\KelasController::class, 'updat
 Route::delete('kelas/{kelas}', [App\Http\Controllers\KelasController::class, 'destroy'])->name('kelas.destroy');
 
 Route::get('guru', [App\Http\Controllers\GuruController::class, 'index'])->name('guru');
+Route::post('guru', [App\Http\Controllers\GuruController::class, 'store'])->name('guru.store');
+Route::put('guru/{guru}', [App\Http\Controllers\GuruController::class, 'update'])->name('guru.update');
+Route::delete('guru/{guru}', [App\Http\Controllers\GuruController::class, 'destroy'])->name('guru.destroy');
 Route::get('matapelajaran', [App\Http\Controllers\MapelController::class, 'index'])->name('matapelajaran');
      
 

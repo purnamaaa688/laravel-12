@@ -1,4 +1,4 @@
-name: CI - Laravel Tests & Migrations
+yaname: CI - Laravel Tests & Migrations
 
 on:
   push:
