@@ -259,6 +259,75 @@
     if (delForm) delForm.action = '/siswa/' + id;
   });
 
+  // Edit form AJAX handler
+  document.addEventListener('DOMContentLoaded', function() {
+    const editForm = document.getElementById('form-edit-siswa');
+    if (!editForm) return;
+    editForm.addEventListener('submit', function(ev) {
+      ev.preventDefault();
+      const action = this.action;
+      const tokenInput = this.querySelector('input[name="_token"]');
+      const token = tokenInput ? tokenInput.value : '';
+      if (!action || !token) {
+        showAlert('Error: Form configuration invalid', 'danger');
+        return;
+      }
+      
+      // Get all form inputs
+      const namasiswa = document.getElementById('edit-namasiswa').value;
+      const jeniskelamin = document.getElementById('edit-jeniskelamin').value;
+      const tempatlahir = document.getElementById('edit-tempatlahir').value;
+      const tanggallahir = document.getElementById('edit-tanggallahir').value;
+      const alamat = document.getElementById('edit-alamat').value;
+      const nohp = document.getElementById('edit-nohp').value;
+      const email = document.getElementById('edit-email').value;
+      const NISN = document.getElementById('edit-NISN').value;
+      
+      // Create URLSearchParams (works better with Laravel)
+      const data = new URLSearchParams();
+      data.append('_token', token);
+      data.append('_method', 'PUT');
+      data.append('namasiswa', namasiswa);
+      data.append('jeniskelamin', jeniskelamin);
+      data.append('tempatlahir', tempatlahir);
+      data.append('tanggallahir', tanggallahir);
+      data.append('alamat', alamat);
+      data.append('nohp', nohp);
+      data.append('email', email);
+      data.append('NISN', NISN);
+      
+      fetch(action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: data
+      }).then(function(res) {
+        if (!res.ok) {
+          return res.json().then(function(j){ throw j; });
+        }
+        return res.json();
+      }).then(function(data) {
+        const modalEl = document.getElementById('edit-siswa');
+        const bsModal = bootstrap.Modal.getInstance(modalEl);
+        if (bsModal) bsModal.hide();
+        showAlert('Data siswa berhasil diubah', 'success');
+        // Refresh after 1 second to show updated data
+        setTimeout(function(){ location.reload(); }, 1000);
+      }).catch(function(err) {
+        console.error('Error:', err);
+        if (err.message) {
+          showAlert('Error: ' + err.message, 'danger');
+        } else if (err.errors) {
+          const errorMsg = Object.values(err.errors).flat().join(', ');
+          showAlert('Validation error: ' + errorMsg, 'danger');
+        } else {
+          showAlert('Gagal mengubah data: ' + JSON.stringify(err), 'danger');
+        }
+      });
+    });
+  });
+
   // Delete AJAX handler
   document.addEventListener('DOMContentLoaded', function() {
     const delForm = document.getElementById('form-delete-siswa');
