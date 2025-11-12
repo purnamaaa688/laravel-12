@@ -8,5 +8,9 @@ class Kelas extends Model
 {
     protected $table = 'kelas';
 
-    public $timestamps = false;
+    public $timestamps = true;
+
+    protected $fillable = [
+        'namakelas',
+    ];
 }
