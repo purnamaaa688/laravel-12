@@ -22,5 +22,10 @@ Route::put('guru/{guru}', [App\Http\Controllers\GuruController::class, 'update']
 Route::delete('guru/{guru}', [App\Http\Controllers\GuruController::class, 'destroy'])->name('guru.destroy');
 Route::get('matapelajaran', [App\Http\Controllers\MapelController::class, 'index'])->name('matapelajaran');
      
-
+Route::get('mapel', [App\Http\Controllers\mapelController::class, 'index'])->name('mapel');
+Route::post('mapel', [App\Http\Controllers\mapelController::class, 'store'])->name('mapel.store');
+Route::put('mapel/{mapel}', [App\Http\Controllers\mapelController::class, 'update'])->name('mapel.update');
+Route::delete('mapel/{mapel}', [App\Http\Controllers\mapelController::class, 'destroy'])->name('mapel.destroy');
+Route::get('matapelajaran', [App\Http\Controllers\MapelController::class, 'index'])->name('matapelajaran');
+     
 

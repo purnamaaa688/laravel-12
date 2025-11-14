@@ -161,13 +161,13 @@
             </li>
             <li class="menu-item">
               <a href="{{ route('guru')}}" class="menu-link">
-                <i class="menu-icon tf-icons bxr bx-location"></i>
+                <i class="menu-icon tf-icons bxr bx-user-plus"></i>
                 <div data-i18n="Analytics">guru </div>
               </a>
             </li>
             <li class="menu-item">
               <a href="{{ route('matapelajaran')}}" class="menu-link">
-                <i class="menu-icon tf-icons bxr bx-calender"></i>
+                <i class="menu-icon tf-icons bxr bx-mesage-reply"></i>
                 <div data-i18n="Analytics">mata pelajaran</div>
               </a>
             </li>

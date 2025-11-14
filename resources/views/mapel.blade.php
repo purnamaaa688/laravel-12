@@ -1,107 +1,235 @@
 @extends('layout')
 @section('content')
- <div class="container-xxl flex-grow-1 container-p-y">
+<div class="container-xxl flex-grow-1 container-p-y">
 
-              <!-- Basic Bootstrap Table -->
-              <div class="card">
+    <div class="card">
+        <h5 class="card-header">Mata Pelajaran</h5>
+        <div class="card-body">
 
-
-              <!-- Striped Rows -->
-              <div class="card">
-                <h5 class="card-header">Data Siswa</h5>
-                <button type="button" class="btn btn-success btn-sm" data-bs-target="input-siswa" data-bs-toggle="modal">tambah</button>
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>aksi</th>
-                        <th>Nama Siswa</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tanggal Lahir</th>
-                        <th>Alamat</th>
-                        <th>No Telepon</th>
-                        <th>Email</th>
-                        <th>NISN</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                       @foreach ($siswa as $item)
-                      <tr>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                       
-                          <td>{{ $item->namasiswa }}</td>
-                          <td>{{ $item->jeniskelamin }}</td>
-                          <td>{{ $item->tempatlahir }}</td>
-                          <td>{{ $item->tanggallahir }}</td>
-                          <td>{{ $item->alamat }}</td>
-                          <td>{{ $item->nohp }}</td>
-                          <td>{{ $item->email }}</td>
-                          <td>{{ $item->NISN }}</td>
-                          @endforeach
-                        </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <!--/ Striped Rows -->
-
+            <div class="mb-3">
+                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#tambahMapelModal">
+                    Tambah Mapel
+                </button>
             </div>
 
-            //form input 
-             <div class="modal fade" id="input-siswa" tabindex="-1" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
-                                <button
-                                  type="button"
-                                  class="btn-close"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                ></button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="row">
-                                  <div class="col mb-3">
-                                    <label for="nameBasic" class="form-label">Name</label>
-                                    <input type="text" id="nameBasic" class="form-control" placeholder="Enter Name" />
-                                  </div>
-                                </div>
-                                <div class="row g-2">
-                                  <div class="col mb-0">
-                                    <label for="emailBasic" class="form-label">Email</label>
-                                    <input type="text" id="emailBasic" class="form-control" placeholder="xxxx@xxx.xx" />
-                                  </div>
-                                  <div class="col mb-0">
-                                    <label for="dobBasic" class="form-label">DOB</label>
-                                    <input type="text" id="dobBasic" class="form-control" placeholder="DD / MM / YY" />
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                  Close
-                                </button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+            <table class="table table-striped" id="table-mapel">
+                <thead>
+                    <tr>
+                        <th>Aksi</th>
+                        <th>ID</th>
+                        <th>Nama Mapel</th>
+                        <th>Kode Mapel</th>
+                        <th>Jam Pelajaran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($mapel as $item)
+                    <tr id="row-{{ $item->id }}">
+                        <td>
+                            <button class="btn btn-sm btn-primary btn-edit me-2"
+                                data-id="{{ $item->id }}"
+                                data-namamapel="{{ $item->nama_mapel }}"
+                                data-kodemapel="{{ $item->kode_mapel }}"
+                                data-jampelajaran="{{ $item->jam_pelajaran }}"
+                                data-bs-toggle="modal" data-bs-target="#editMapelModal">
+                                Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger btn-delete"
+                                data-id="{{ $item->id }}"
+                                data-namamapel="{{ $item->nama_mapel }}">
+                                Hapus
+                            </button>
+                        </td>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->nama_mapel }}</td>
+                        <td>{{ $item->kode_mapel }}</td>
+                        <td>{{ $item->jam_pelajaran }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
+        </div>
+    </div>
+</div>
 
+<!-- Modal Tambah -->
+<div class="modal fade" id="tambahMapelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="form-tambah-mapel">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Mata Pelajaran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Nama Mapel</label>
+                        <input type="text" class="form-control" name="namamapel" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Kode Mapel</label>
+                        <input type="text" class="form-control" name="kodemapel" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Jam Pelajaran</label>
+                        <input type="number" class="form-control" name="jampelajaran" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="editMapelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="form-edit-mapel">
+                @csrf
+                @method('PUT')
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Mata Pelajaran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="edit-id">
+                    <div class="mb-3">
+                        <label>Nama Mapel</label>
+                        <input type="text" class="form-control" id="edit-namamapel" name="namamapel" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Kode Mapel</label>
+                        <input type="text" class="form-control" id="edit-kodemapel" name="kodemapel" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Jam Pelajaran</label>
+                        <input type="number" class="form-control" id="edit-jampelajaran" name="jampelajaran" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const tableBody = document.querySelector('#table-mapel tbody');
+
+    // Tambah Mapel
+    document.getElementById('form-tambah-mapel').addEventListener('submit', async function(e){
+        e.preventDefault();
+        const formData = new FormData(this);
+        const res = await fetch("{{ route('mapel.store') }}", {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': csrfToken },
+            body: formData
+        });
+        const data = await res.json();
+        if(data.success){
+            // Tambah row ke tabel
+            const newRow = document.createElement('tr');
+            newRow.id = 'row-' + data.mapel.id;
+            newRow.innerHTML = `
+                <td>
+                    <button class="btn btn-sm btn-primary btn-edit me-2"
+                        data-id="${data.mapel.id}"
+                        data-namamapel="${data.mapel.namamapel}"
+                        data-kodemapel="${data.mapel.kodemapel}"
+                        data-jampelajaran="${data.mapel.jampelajaran}"
+                        data-bs-toggle="modal" data-bs-target="#editMapelModal">Edit</button>
+                    <button class="btn btn-sm btn-danger btn-delete"
+                        data-id="${data.mapel.id}" data-namamapel="${data.mapel.namamapel}">Hapus</button>
+                </td>
+                <td>${data.mapel.id}</td>
+                <td>${data.mapel.namamapel}</td>
+                <td>${data.mapel.kodemapel}</td>
+                <td>${data.mapel.jampelajaran}</td>
+            `;
+            tableBody.appendChild(newRow);
+            this.reset();
+            var modal = bootstrap.Modal.getInstance(document.getElementById('tambahMapelModal'));
+            modal.hide();
+            attachEventListeners(); // attach edit/delete event
+        }
+    });
+
+    // Edit Mapel
+    function attachEventListeners(){
+        document.querySelectorAll('.btn-edit').forEach(btn => {
+            btn.onclick = function(){
+                document.getElementById('edit-id').value = this.dataset.id;
+                document.getElementById('edit-namamapel').value = this.dataset.namamapel;
+                document.getElementById('edit-kodemapel').value = this.dataset.kodemapel;
+                document.getElementById('edit-jampelajaran').value = this.dataset.jampelajaran;
+            };
+        });
+
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.onclick = async function(){
+                if(!confirm(`Yakin ingin menghapus mapel ${this.dataset.namamapel}?`)) return;
+                const id = this.dataset.id;
+                const res = await fetch('/mapel/' + id, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'X-HTTP-Method-Override': 'DELETE'
+                    }
+                });
+                const data = await res.json();
+                if(data.success){
+                    document.getElementById('row-' + id).remove();
+                }
+            };
+        });
+    }
+
+    attachEventListeners();
+
+    document.getElementById('form-edit-mapel').addEventListener('submit', async function(e){
+        e.preventDefault();
+        const id = document.getElementById('edit-id').value;
+        const formData = new FormData(this);
+        const res = await fetch('/mapel/' + id, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'X-HTTP-Method-Override': 'PUT'
+            },
+            body: formData
+        });
+        const data = await res.json();
+        if(data.success){
+            const row = document.getElementById('row-' + id);
+            row.children[1].textContent = data.mapel.id;
+            row.children[2].textContent = data.mapel.namamapel;
+            row.children[3].textContent = data.mapel.kodemapel;
+            row.children[4].textContent = data.mapel.jampelajaran;
+
+            // Update data attributes untuk tombol
+            const editBtn = row.querySelector('.btn-edit');
+            editBtn.dataset.namamapel = data.mapel.namamapel;
+            editBtn.dataset.kodemapel = data.mapel.kodemapel;
+            editBtn.dataset.jampelajaran = data.mapel.jampelajaran;
+
+            var modal = bootstrap.Modal.getInstance(document.getElementById('editMapelModal'));
+            modal.hide();
+        }
+    });
+
+});
+</script>
+@endpush
 @endsection

@@ -144,7 +144,7 @@
     // populate lokasi
     const lokasiVal = el.getAttribute('data-lokasi') || '';
     const editLokasiEl = document.getElementById('edit-lokasi');
-    if (editLokasiEl) editLokasiEl.value = lokasiVal;
+    if (editLokasiEl) editKodemapelEl.value = KdemapelVal;
     const form = document.getElementById('form-edit-kelas');
     if (form) form.action = '/kelas/' + id;
   });
